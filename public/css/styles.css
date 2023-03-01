@@ -1,0 +1,44 @@
+body {
+  margin: 0;
+}
+
+header {
+  background-image: linear-gradient(to bottom right, #d0e8ea, #9edadb);
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+
+h1 {
+  color: #fff;
+  text-shadow: 0 0 10px #388ade;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2.5rem;
+  font-weight: lighter;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.nav {
+  list-style-type: none;
+  text-transform: uppercase;
+}
+
+.nav-item {
+  display: inline;
+  font-size: 2rem;
+  font-weight: bold;
+  margin: 1rem;
+}
+
+.nav-link {
+  color: #fff;
+  font-family: "Amatic SC", cursive;
+  text-decoration: none;
+  text-shadow: 0 0 10px #388ade;
+}
+
+.nav-link:hover {
+  color: #fd321d;
+}
