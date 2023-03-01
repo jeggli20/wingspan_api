@@ -21,6 +21,10 @@ Route::resource("card", "CardController", [
     "except" => ["edit", "create"]
 ]);
 
+/*TODO 
+Add routes for habitat, food, and continents (possibly nest types and power types)
+*/
+
 Route::post("user", [
     "uses" => "AuthController@store"
 ]);
