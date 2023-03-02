@@ -42,4 +42,3 @@ $card = isset($card) ? $card : new Card;
     <option value="multi" {{ $card->habitat_continent_type === "single" ? "" : "selected" }}>Multi</option>
 </select>
 {{ csrf_field() }}
-<button type="submit" >Submit</button>

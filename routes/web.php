@@ -48,8 +48,8 @@ Route::group(["prefix" => "admin"], function() {
         return view("admin.create");
     })->name("admin.create");
 
-    Route::get("edit/{id}", [
-        "uses" => "CardController@getAdminEdit",
+    Route::get("update/{id}", [
+        "uses" => "CardController@getAdminUpdate",
         "as" => "admin.edit"
     ]);
 
@@ -66,9 +66,10 @@ Route::group(["prefix" => "admin"], function() {
         "as" => "admin.create"
     ]);
 
-    Route::post("update", function() {
-        return "It works!";
-    })->name("admin.update");
+    Route::post("update", [
+        "uses" => "CardController@postAdminUpdate",
+        "as" => "admin.update"
+    ]);
 
     Route::post("delete", function() {
         return "It works!";
