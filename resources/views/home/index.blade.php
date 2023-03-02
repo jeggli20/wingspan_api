@@ -1,3 +1,4 @@
+<?php $active_link = "Home"; ?> 
 @extends("layouts.master")
 
 @section("content")
