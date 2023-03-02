@@ -2,16 +2,6 @@ body {
   margin: 0;
 }
 
-h1 {
-  color: #fff;
-  text-shadow: 0 0 10px #388ade;
-  font-family: "Barlow Condensed", sans-serif;
-  font-size: 2.5rem;
-  font-weight: lighter;
-  letter-spacing: 5px;
-  text-transform: uppercase;
-}
-
 /* ================ Header ================ */
 .main-header {
   background-image: linear-gradient(to bottom right, #d0e8ea, #9edadb);
@@ -19,6 +9,20 @@ h1 {
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+}
+
+.main-title,
+.admin-title {
+  color: #fff;
+  font-family: "Barlow Condensed", sans-serif;
+  font-size: 2.5rem;
+  font-weight: lighter;
+  letter-spacing: 5px;
+  text-transform: uppercase;
+}
+
+.main-title {
+  text-shadow: 0 0 10px #388ade;
 }
 
 .nav {
@@ -33,14 +37,19 @@ h1 {
   margin: 1rem;
 }
 
-.nav-link {
-  color: #d0e8ea;
+.nav-link,
+.admin-nav-link {
   font-family: "Amatic SC", cursive;
   text-decoration: none;
+}
+
+.nav-link {
+  color: #d0e8ea;
   text-shadow: 0 0 10px #388ade;
 }
 
-.nav-link:hover {
+.nav-link:hover,
+.admin-nav-link:hover {
   color: #fff;
 }
 
@@ -60,4 +69,13 @@ h1 {
   flex-direction: row;
   align-items: center;
   justify-content: space-around;
+}
+
+.admin-title {
+  text-shadow: 0 0 10px #ff4d4d;
+}
+
+.admin-nav-link {
+  color: #ffb3b3;
+  text-shadow: 0 0 10px #ff4d4d;
 }

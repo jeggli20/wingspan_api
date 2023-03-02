@@ -52,13 +52,13 @@ class CardController extends Controller
         $this->validate($request, [
             "name" => "required|string", 
             "scientific_name" => "required|string", 
-            "habitat_type" => "required|in:single,multi,wild",
+            "habitat_type" => "required|in:single,multi",
             "food_count" => "required|integer",
             "points" => "required|integer",
             "nest_type" => "required|in:platform,bowl,cavity,ground,star",
             "egg_count" => "required|integer",
             "wingspan" => "required|integer",
-            "continent_type" => "required|in:single,multi",
+            "habitat_continent_type" => "required|in:single,multi",
             "power_type" => "required|in:When Activated,Once Between Turns,When Played",
             "power" => "required|string"
         ]);
@@ -75,7 +75,7 @@ class CardController extends Controller
         $nest_type = $request->input("nest_type"); 
         $egg_count = $request->input("egg_count"); 
         $wingspan = $request->input("wingspan"); 
-        $continent_type = $request->input("continent_type");
+        $habitat_continent_type = $request->input("habitat_continent_type");
         $power_type = $request->input("power_type"); 
         $power = $request->input("power"); 
         $user_id = $user->id;
@@ -89,7 +89,7 @@ class CardController extends Controller
             "nest_type" => $nest_type,
             "egg_count" => $egg_count,
             "wingspan" => $wingspan,
-            "continent_type" => $continent_type,
+            "habitat_continent_type" => $habitat_continent_type,
             "power_type" => $power_type,
             "power" => $power,
             "user_id" => $user_id,
@@ -149,13 +149,13 @@ class CardController extends Controller
         $this->validate($request, [
             "name" => "required|string", 
             "scientific_name" => "required|string", 
-            "habitat_type" => "required|in:single,multi,wild",
+            "habitat_type" => "required|in:single,multi",
             "food_count" => "required|integer",
             "points" => "required|integer",
             "nest_type" => "required|in:platform,bowl,cavity,ground,star",
             "egg_count" => "required|integer",
             "wingspan" => "required|integer",
-            "continent_type" => "required|in:single,multi",
+            "habitat_continent_type" => "required|in:single,multi",
             "power_type" => "required|in:When Activated,Once Between Turns,When Played",
             "power" => "required|string",
         ]);
@@ -172,7 +172,7 @@ class CardController extends Controller
         $nest_type = $request->input("nest_type"); 
         $egg_count = $request->input("egg_count"); 
         $wingspan = $request->input("wingspan"); 
-        $continent_type = $request->input("continent_type");
+        $habitat_continent_type = $request->input("habitat_continent_type");
         $power_type = $request->input("power_type"); 
         $power = $request->input("power"); 
         $user_id = $user->id;
@@ -187,7 +187,7 @@ class CardController extends Controller
         $card->nest_type = $nest_type;
         $card->egg_count = $egg_count;
         $card->wingspan = $wingspan;
-        $card->continent_type = $continent_type;
+        $card->habitat_continent_type = $habitat_continent_type;
         $card->power_type = $power_type;
         $card->power = $power;
         $card->user_id = $user_id;
@@ -236,5 +236,84 @@ class CardController extends Controller
         ];
 
         return response()->json($response, 201);
+    }
+
+    public function getIndex() {
+        $cards = Card::orderBy("name", "asc")->paginate(5);
+        return view("home.index", ["cards" => $cards]);
+    }
+
+    public function getAdminIndex() {
+        $cards = Card::orderBy("name", "asc")->paginate(5);
+        return view("admin.index", ["cards" => $cards]);
+    }
+
+    public function getAdminEdit($id) {
+        $card = Card::find($id);
+        return view("admin.update", ["card" => $card]);
+    }
+
+    public function postAdminCreate(Request $request) {
+        $this->validate($request, [
+            "name" => "required|string", 
+            "scientific_name" => "required|string", 
+            "habitat_type" => "required|in:single,multi",
+            "food_count" => "required",
+            "points" => "required",
+            "nest_type" => "required|in:platform,bowl,cavity,ground,star",
+            "egg_count" => "required",
+            "wingspan" => "required",
+            "habitat_continent_type" => "required|in:single,multi",
+            "power_type" => "required|in:When Activated,Once Between Turns,When Played",
+            "power" => "required|string"
+        ]);
+
+        // if(!$user = JWTAuth::parseToken()->authenticate()) {
+        //     return response()->json(["msg" => "User not found"], 403);
+        // }
+
+        $name = $request->input("name");  
+        $scientific_name = $request->input("scientific_name");  
+        $habitat_type = $request->input("habitat_type"); 
+        $food_count = $request->input("food_count"); 
+        $points = $request->input("points"); 
+        $nest_type = $request->input("nest_type"); 
+        $egg_count = $request->input("egg_count"); 
+        $wingspan = $request->input("wingspan"); 
+        $habitat_continent_type = $request->input("habitat_continent_type");
+        $power_type = $request->input("power_type"); 
+        $power = $request->input("power"); 
+        $user_id = 1;
+
+        $card = new Card([
+            "name" => $name,
+            "scientific_name" => $scientific_name, 
+            "habitat_type" => $habitat_type,
+            "food_count" => $food_count,
+            "points" => $points,
+            "nest_type" => $nest_type,
+            "egg_count" => $egg_count,
+            "wingspan" => $wingspan,
+            "habitat_continent_type" => $habitat_continent_type,
+            "power_type" => $power_type,
+            "power" => $power,
+            "user_id" => $user_id,
+        ]);
+
+        $user = User::find($user_id);
+
+        if($user->cards()->save($card)) {
+            $card->view_card = [
+                "href" => "api/v1/card/" . $card->id,
+                "method" => "GET"
+            ];
+            $msg = "Card was created successfully";
+
+            return view("admin.result", ["card" => $card, "msg" => $msg]);
+        }
+
+        $error_msg = "An error occurred while creating the card";
+
+        return view("admin.result", ["error_msg" => $error_msg]);
     }
 }

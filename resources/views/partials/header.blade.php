@@ -1,5 +1,5 @@
 <header class="main-header">
-    <h1>Wingspan&nbsp;&nbsp;API</h1>
+    <h1 class="main-title">Wingspan&nbsp;&nbsp;API</h1>
     <nav class="navbar">
         <ul class="nav">
             <li class="nav-item"><a class="nav-link {{ $active_link === "Home" ? "active" : "" }}" href="{{ route("home.index") }}">Home</a></li>
