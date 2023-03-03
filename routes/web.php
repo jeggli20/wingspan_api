@@ -16,32 +16,15 @@ Route::get('/', [
     "as" => "home.index"
 ]);
 
-Route::get("about", function() {
-    return view("about.index");
-})->name("about.index");
+Route::get("about", [
+    "uses" => "CardController@getAbout",
+    "as" => "home.about"
+]);
 
 Route::get("details/{id}", [
     "uses" => "CardController@getDetails",
     "as" => "home.details"
 ]);
-
-// Route::group(["prefix" => "login"], function() {
-//     Route::get("", function() {
-//         return view("login.index");
-//     })->name("login.index");
-
-//     Route::get("signup", function() {
-//         return view("login.signup");
-//     })->name("login.signup");
-
-//     Route::post("", function() {
-//         return "It works!";
-//     })->name("login.index");
-
-//     Route::post("signup", function() {
-//         return "It works!";
-//     })->name("login.signup");
-// });
 
 Route::group(["prefix" => "admin"], function() {
     Route::get("", [
@@ -49,9 +32,10 @@ Route::group(["prefix" => "admin"], function() {
         "as" => "admin.index"
     ]);
 
-    Route::get("create", function() {
-        return view("admin.create");
-    })->name("admin.create");
+    Route::get("create", [
+        "uses" => "CardController@getAdminCreate",
+        "as" => "admin.create"
+    ]);
 
     Route::get("update/{id}", [
         "uses" => "CardController@getAdminUpdate",
@@ -85,5 +69,3 @@ Route::group(["prefix" => "admin"], function() {
 });
 
 Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');

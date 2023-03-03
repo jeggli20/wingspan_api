@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\User;
 use App\Card;
+use Auth;
 use Illuminate\Http\Request;
 
 use JWTAuth;
@@ -239,31 +240,71 @@ class CardController extends Controller
     }
 
     public function getIndex() {
+        $user = Auth::user();
+        if($user) {
+            return redirect()->back();
+        }
         $cards = Card::orderBy("name", "asc")->paginate(5);
         return view("home.index", ["cards" => $cards]);
     }
 
+    public function getAbout() {
+        $user = Auth::user();
+        if($user) {
+            return redirect()->back();
+        }
+        return view("home.about");
+    }
+
     public function getDetails($id) {
+        $user = Auth::user();
+        if($user) {
+            return redirect()->back();
+        }
         $card = Card::find($id);
         return view("home.details", ["card" => $card]);
     }
 
     public function getAdminIndex() {
-        $cards = Card::orderBy("name", "asc")->paginate(5);
+        $user = Auth::user();
+        if(!$user) {
+            return redirect()->back();
+        }
+        $cards = $user->cards()->orderBy("name", "asc")->paginate(5);
         return view("admin.index", ["cards" => $cards]);
     }
 
     public function getAdminDetails($id) {
+        $user = Auth::user();
+        if(!$user) {
+            return redirect()->back();
+        }
         $card = Card::find($id);
         return view("admin.details", ["card" => $card]);
     }
 
+    public function getAdminCreate() {
+        $user = Auth::user();
+        if(!$user) {
+            return redirect()->back();
+        }
+        return view("admin.create");
+    }
+
     public function getAdminUpdate($id) {
+        $user = Auth::user();
+        if(!$user) {
+            return redirect()->back();
+        }
         $card = Card::find($id);
         return view("admin.update", ["card" => $card]);
     }
 
     public function getAdminDelete($id) {
+        $user = Auth::user();
+        if(!$user) {
+            return redirect()->back();
+        }
         $card = Card::find($id);
         return view("admin.delete", ["card" => $card]);
     }
@@ -283,9 +324,10 @@ class CardController extends Controller
             "power" => "required|string"
         ]);
 
-        // if(!$user = JWTAuth::parseToken()->authenticate()) {
-        //     return response()->json(["msg" => "User not found"], 403);
-        // }
+        $user = Auth::user();
+        if(!$user) {
+            return redirect()->back();
+        }
 
         $name = $request->input("name");  
         $scientific_name = $request->input("scientific_name");  
@@ -298,7 +340,7 @@ class CardController extends Controller
         $habitat_continent_type = $request->input("habitat_continent_type");
         $power_type = $request->input("power_type"); 
         $power = $request->input("power"); 
-        $user_id = 1;
+        $user_id = $user->id;
 
         $card = new Card([
             "name" => $name,
@@ -314,8 +356,6 @@ class CardController extends Controller
             "power" => $power,
             "user_id" => $user_id,
         ]);
-
-        $user = User::find($user_id);
 
         if($user->cards()->save($card)) {
             $card->view_card = [
@@ -347,9 +387,10 @@ class CardController extends Controller
             "power" => "required|string",
         ]);
 
-        // if(!$user = JWTAuth::parseToken()->authenticate()) {
-        //     return response()->json(["msg" => "User not found"], 403);
-        // }
+        $user = Auth::user();
+        if(!$user) {
+            return redirect()->back();
+        }
 
         $name = $request->input("name");  
         $scientific_name = $request->input("scientific_name");  
@@ -363,7 +404,7 @@ class CardController extends Controller
         $power_type = $request->input("power_type"); 
         $power = $request->input("power");
         $card_id = $request->input("id"); 
-        $user_id = 1;
+        $user_id = $user->id;
 
         $card = Card::findOrFail($card_id);
 
@@ -378,7 +419,6 @@ class CardController extends Controller
         $card->habitat_continent_type = $habitat_continent_type;
         $card->power_type = $power_type;
         $card->power = $power;
-        $card->user_id = $user_id;
 
         if(!$card->update()) {
             $error_msg = "An error occurred while updating" . $card->name;
@@ -397,10 +437,11 @@ class CardController extends Controller
     }
 
     public function getAdminDeleteConfirm($id) {
+        $user = Auth::user();
+        if(!$user) {
+            return redirect()->back();
+        }
         $card = Card::findOrFail($id);
-        // if(!$user = JWTAuth::parseToken()->authenticate()) {
-        //     return response()->json(["msg" => "User not found"], 403);
-        // }
 
         if(!$card->delete()) {
             $error_msg = "An error occurred when deleting" . $card->name;
