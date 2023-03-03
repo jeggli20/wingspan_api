@@ -4,7 +4,7 @@
     <div>
         <a href="{{ route("admin.index") }}">&laquo; Back</a>
     </div>
-    <div class="login">
+    <div>
         <h3>Edit Card</h3>
         <form action="{{ route("admin.update") }}" method="post">
             @include("partials.crud_form_fields")

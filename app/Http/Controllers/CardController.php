@@ -243,14 +243,29 @@ class CardController extends Controller
         return view("home.index", ["cards" => $cards]);
     }
 
+    public function getDetails($id) {
+        $card = Card::find($id);
+        return view("home.details", ["card" => $card]);
+    }
+
     public function getAdminIndex() {
         $cards = Card::orderBy("name", "asc")->paginate(5);
         return view("admin.index", ["cards" => $cards]);
     }
 
+    public function getAdminDetails($id) {
+        $card = Card::find($id);
+        return view("admin.details", ["card" => $card]);
+    }
+
     public function getAdminUpdate($id) {
         $card = Card::find($id);
         return view("admin.update", ["card" => $card]);
+    }
+
+    public function getAdminDelete($id) {
+        $card = Card::find($id);
+        return view("admin.delete", ["card" => $card]);
     }
 
     public function postAdminCreate(Request $request) {
@@ -307,14 +322,14 @@ class CardController extends Controller
                 "href" => "api/v1/card/" . $card->id,
                 "method" => "GET"
             ];
-            $msg = "Card was created successfully";
+            $msg = $card->name . " was created successfully";
 
-            return view("admin.result", ["card" => $card, "msg" => $msg]);
+            return view("admin.details", ["card" => $card, "msg" => $msg]);
         }
 
         $error_msg = "An error occurred while creating the card";
 
-        return view("admin.result", ["error_msg" => $error_msg]);
+        return view("admin.details", ["error_msg" => $error_msg]);
     }
 
     public function postAdminUpdate(Request $request) {
@@ -366,9 +381,9 @@ class CardController extends Controller
         $card->user_id = $user_id;
 
         if(!$card->update()) {
-            $error_msg = "An error occurred while updating the card";
+            $error_msg = "An error occurred while updating" . $card->name;
 
-            return view("admin.result", ["error_msg" => $error_msg]);
+            return view("admin.details", ["error_msg" => $error_msg]);
         }
 
         $card->view_card = [
@@ -376,8 +391,26 @@ class CardController extends Controller
             "method" => "GET"
         ];
 
-        $msg = "Card was updated";
+        $msg = $card->name . " was updated";
 
-        return view("admin.result", ["card" => $card, "msg" => $msg]);
+        return view("admin.details", ["card" => $card, "msg" => $msg]);
+    }
+
+    public function getAdminDeleteConfirm($id) {
+        $card = Card::findOrFail($id);
+        // if(!$user = JWTAuth::parseToken()->authenticate()) {
+        //     return response()->json(["msg" => "User not found"], 403);
+        // }
+
+        if(!$card->delete()) {
+            $error_msg = "An error occurred when deleting" . $card->name;
+            return view("admin.index", ["error_msg" => $error_msg]);
+        }
+
+        $cards = Card::orderBy("name", "asc")->paginate(5);
+
+        $msg = $card->name . " was successfully deleted";
+
+        return view("admin.index", ["cards" => $cards, "msg" => $msg]);
     }
 }

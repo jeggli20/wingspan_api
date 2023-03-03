@@ -20,23 +20,28 @@ Route::get("about", function() {
     return view("about.index");
 })->name("about.index");
 
-Route::group(["prefix" => "login"], function() {
-    Route::get("", function() {
-        return view("login.index");
-    })->name("login.index");
+Route::get("details/{id}", [
+    "uses" => "CardController@getDetails",
+    "as" => "home.details"
+]);
 
-    Route::get("signup", function() {
-        return view("login.signup");
-    })->name("login.signup");
+// Route::group(["prefix" => "login"], function() {
+//     Route::get("", function() {
+//         return view("login.index");
+//     })->name("login.index");
 
-    Route::post("", function() {
-        return "It works!";
-    })->name("login.index");
+//     Route::get("signup", function() {
+//         return view("login.signup");
+//     })->name("login.signup");
 
-    Route::post("signup", function() {
-        return "It works!";
-    })->name("login.signup");
-});
+//     Route::post("", function() {
+//         return "It works!";
+//     })->name("login.index");
+
+//     Route::post("signup", function() {
+//         return "It works!";
+//     })->name("login.signup");
+// });
 
 Route::group(["prefix" => "admin"], function() {
     Route::get("", [
@@ -53,13 +58,15 @@ Route::group(["prefix" => "admin"], function() {
         "as" => "admin.edit"
     ]);
 
-    Route::get("delete", function() {
-        return view("admin.delete");
-    })->name("admin.delete");
+    Route::get("delete/{id}", [
+        "uses" => "CardController@getAdminDelete",
+        "as" => "admin.delete"
+    ]);
 
-    Route::get("result", function() {
-        return view("admin.result");
-    })->name("admin.result");
+    Route::get("details/{id}", [
+        "uses" => "CardController@getAdminDetails",
+        "as" => "admin.details"
+    ]);
 
     Route::post("create", [
         "uses" => "CardController@postAdminCreate",
@@ -71,7 +78,12 @@ Route::group(["prefix" => "admin"], function() {
         "as" => "admin.update"
     ]);
 
-    Route::post("delete", function() {
-        return "It works!";
-    })->name("admin.delete");
+    Route::get("delete/confirm/{id}", [
+        "uses" => "CardController@getAdminDeleteConfirm",
+        "as" => "admin.confirm"
+    ]);
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
