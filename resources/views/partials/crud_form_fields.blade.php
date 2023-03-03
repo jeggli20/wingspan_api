@@ -9,8 +9,8 @@ $card = isset($card) ? $card : new Card;
 <input id="scientific_name" name="scientific_name" type="text" placeholder="Corvus Corax" value="{{ $card->scientific_name }}" />
 <label for="habitat_type">Habitat Type:</label>
 <select id="habitat_type" name="habitat_type">
-    <option value="single" {{ $card->habitat_type === "single" ? "selected" : "" }}>Single</option>
-    <option value="multi" {{ $card->habitat_type === "single" ? "" : "selected" }}>Multi</option>
+    <option value="Single" {{ $card->habitat_type === "single" ? "selected" : "" }}>Single</option>
+    <option value="Multi" {{ $card->habitat_type === "single" ? "" : "selected" }}>Multi</option>
 </select>
 <label for="food_count">Food Count:</label>
 <input id="food_count" name="food_count" type="number" placeholder="3" value="{{ $card->food_count }}" />
@@ -18,11 +18,11 @@ $card = isset($card) ? $card : new Card;
 <input id="points" name="points" type="number" placeholder="5" value="{{ $card->points }}" />
 <label for="nest_type">Nest Type:</label>
 <select id="nest_type" name="nest_type">
-    <option value="bowl" {{ $card->nest_type === "bowl" ? "" : "selected" }}>Bowl</option>
-    <option value="cavity" {{ $card->nest_type === "cavity" ? "" : "selected" }}>Cavity</option>
-    <option value="ground" {{ $card->nest_type === "ground" ? "" : "selected" }}>Ground</option>
-    <option value="platform" {{ $card->nest_type === "platform" || !isset($card->nest_type) ? "selected" : "" }}>Platform</option>
-    <option value="star" {{ $card->nest_type === "star" ? "selected" : "" }}>Star</option>
+    <option value="Bowl" {{ $card->nest_type === "bowl" ? "" : "selected" }}>Bowl</option>
+    <option value="Cavity" {{ $card->nest_type === "cavity" ? "" : "selected" }}>Cavity</option>
+    <option value="Ground" {{ $card->nest_type === "ground" ? "" : "selected" }}>Ground</option>
+    <option value="Platform" {{ $card->nest_type === "platform" || !isset($card->nest_type) ? "selected" : "" }}>Platform</option>
+    <option value="Star" {{ $card->nest_type === "star" ? "selected" : "" }}>Star</option>
 </select>
 <label for="egg_count">Egg Count:</label>
 <input id="egg_count" name="egg_count" type="number" placeholder="2" value="{{ $card->egg_count }}" />
@@ -38,7 +38,7 @@ $card = isset($card) ? $card : new Card;
 <input id="power" name="power" type="text" placeholder="Discard 1 egg..." value="{{ $card->power }}" />
 <label for="habitat_continent_type">Habitat Continent Type:</label>
 <select id="habitat_continent_type" name="habitat_continent_type">
-    <option value="single" {{ $card->habitat_continent_type === "single" ? "selected" : "" }}>Single</option>
-    <option value="multi" {{ $card->habitat_continent_type === "single" ? "" : "selected" }}>Multi</option>
+    <option value="Single" {{ $card->habitat_continent_type === "single" ? "selected" : "" }}>Single</option>
+    <option value="Multi" {{ $card->habitat_continent_type === "single" ? "" : "selected" }}>Multi</option>
 </select>
 {{ csrf_field() }}

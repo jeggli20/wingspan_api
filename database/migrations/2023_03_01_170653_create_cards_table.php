@@ -19,13 +19,13 @@ class CreateCardsTable extends Migration
             $table->integer("user_id");
             $table->string("name");
             $table->string("scientific_name");
-            $table->enum("habitat_type", ["single", "multi"]);
+            $table->enum("habitat_type", ["Single", "Multi"]);
             $table->string("food_count");
             $table->integer("points");
-            $table->enum("nest_type", ["platform", "bowl", "cavity", "ground", "star"]);
+            $table->enum("nest_type", ["Platform", "Bowl", "Cavity", "Ground", "Star"]);
             $table->integer("egg_count");
             $table->integer("wingspan");
-            $table->enum("habitat_continent_type", ["single", "multi"]);
+            $table->enum("habitat_continent_type", ["Single", "Multi"]);
             $table->enum("power_type", ["When Activated", "Once Between Turns", "When Played"]);
             $table->text("power");
         });

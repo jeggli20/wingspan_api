@@ -1,5 +1,5 @@
 <?php $active_link = NULL; ?>
-@extends("layouts.admin")
+@extends("layouts.master")
 
 @section("content")
     <div>

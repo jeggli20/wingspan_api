@@ -2,7 +2,7 @@
 $error_msg = isset($error_msg) ? $error_msg : Null; 
 $msg = isset($msg) ? $msg : Null; 
 ?>
-@extends("layouts.admin")
+@extends("layouts.master")
 
 @section("content")
     <div>

@@ -53,13 +53,13 @@ class CardController extends Controller
         $this->validate($request, [
             "name" => "required|string", 
             "scientific_name" => "required|string", 
-            "habitat_type" => "required|in:single,multi",
+            "habitat_type" => "required|in:Single,Multi",
             "food_count" => "required|integer",
             "points" => "required|integer",
-            "nest_type" => "required|in:platform,bowl,cavity,ground,star",
+            "nest_type" => "required|in:Platform,Bowl,Cavity,Ground,Star",
             "egg_count" => "required|integer",
             "wingspan" => "required|integer",
-            "habitat_continent_type" => "required|in:single,multi",
+            "habitat_continent_type" => "required|in:Single,Multi",
             "power_type" => "required|in:When Activated,Once Between Turns,When Played",
             "power" => "required|string"
         ]);
@@ -150,13 +150,13 @@ class CardController extends Controller
         $this->validate($request, [
             "name" => "required|string", 
             "scientific_name" => "required|string", 
-            "habitat_type" => "required|in:single,multi",
+            "habitat_type" => "required|in:Single,Multi",
             "food_count" => "required|integer",
             "points" => "required|integer",
-            "nest_type" => "required|in:platform,bowl,cavity,ground,star",
+            "nest_type" => "required|in:Platform,Bowl,Cavity,Ground,Star",
             "egg_count" => "required|integer",
             "wingspan" => "required|integer",
-            "habitat_continent_type" => "required|in:single,multi",
+            "habitat_continent_type" => "required|in:Single,Multi",
             "power_type" => "required|in:When Activated,Once Between Turns,When Played",
             "power" => "required|string",
         ]);
@@ -313,13 +313,13 @@ class CardController extends Controller
         $this->validate($request, [
             "name" => "required|string", 
             "scientific_name" => "required|string", 
-            "habitat_type" => "required|in:single,multi",
+            "habitat_type" => "required|in:Single,Multi",
             "food_count" => "required",
             "points" => "required",
-            "nest_type" => "required|in:platform,bowl,cavity,ground,star",
+            "nest_type" => "required|in:Platform,Bowl,Cavity,Ground,Star",
             "egg_count" => "required",
             "wingspan" => "required",
-            "habitat_continent_type" => "required|in:single,multi",
+            "habitat_continent_type" => "required|in:Single,Multi",
             "power_type" => "required|in:When Activated,Once Between Turns,When Played",
             "power" => "required|string"
         ]);
@@ -376,13 +376,13 @@ class CardController extends Controller
         $this->validate($request, [
             "name" => "required|string", 
             "scientific_name" => "required|string", 
-            "habitat_type" => "required|in:single,multi",
+            "habitat_type" => "required|in:Single,Multi",
             "food_count" => "required|integer",
             "points" => "required|integer",
-            "nest_type" => "required|in:platform,bowl,cavity,ground,star",
+            "nest_type" => "required|in:Platform,Bowl,Cavity,Ground,Star",
             "egg_count" => "required|integer",
             "wingspan" => "required|integer",
-            "habitat_continent_type" => "required|in:single,multi",
+            "habitat_continent_type" => "required|in:Single,Multi",
             "power_type" => "required|in:When Activated,Once Between Turns,When Played",
             "power" => "required|string",
         ]);
